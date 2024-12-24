@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Welcome, {{ user['username'] }}!</h1>
+            <div class="box">
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image is-128x128">
+                            <img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.png" alt="User Avatar">
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>Username:</strong> {{ user['username'] }}<br>
+                                <strong>Email:</strong> {{ user.get('email', 'No email provided') }}<br>
+                                <strong>Discord ID:</strong> {{ user['id'] }}<br>
+                                <strong>Outprocessing Progress:</strong> {{ user['outprocessing_progress'] }}%
+                            </p>
+                            <!-- Add progress bar -->
+                            <progress class="progress is-primary" value="{{ user['outprocessing_progress'] }}" max="100"></progress>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="buttons">
+                <a href="{{ url_for('logout') }}" class="button is-danger">Log Out</a>
+                <a href="{{ url_for('index') }}" class="button is-primary">Back to Home</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

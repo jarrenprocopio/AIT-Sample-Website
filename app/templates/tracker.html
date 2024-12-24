@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outprocessing Progress Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+    {% extends "layout.html" %}
+    {% block content %}
+
+    <!-- Tracker Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="title has-text-centered">Outprocessing Progress Tracker</h2>
+            <p class="subtitle has-text-centered">Track each step to ensure a smooth outprocessing experience.</p>
+
+            <!-- Progress Bar -->
+            <div class="box">
+                <h3 class="title is-4">Overall Progress</h3>
+                <progress class="progress is-primary" id="progress-bar" value="0" max="100">0%</progress>
+                <p id="progress-text" class="has-text-centered mt-2">0% completed</p>
+            </div>
+
+            <!-- Task List -->
+            <div class="box">
+                <h3 class="title is-4">Tasks</h3>
+                <!-- Progress Tracker List -->
+                <ul>
+                    <li class="mb-3">
+                        <label class="checkbox">
+                            <input type="checkbox" class="task-checkbox"> Return all issued equipment to Supply
+                        </label>
+                    </li>
+                    <li class="mb-3">
+                        <label class="checkbox">
+                            <input type="checkbox" class="task-checkbox"> Complete final medical checkup
+                        </label>
+                    </li>
+                    <li class="mb-3">
+                        <label class="checkbox">
+                            <input type="checkbox" class="task-checkbox"> Attend exit interview with Platoon Sergeant
+                        </label>
+                    </li>
+                    <li class="mb-3">
+                        <label class="checkbox">
+                            <input type="checkbox" class="task-checkbox"> Schedule transportation to next duty station
+                        </label>
+                    </li>
+                    <li class="mb-3">
+                        <label class="checkbox">
+                            <input type="checkbox" class="task-checkbox"> Clear barracks and inspect room with leadership
+                        </label>
+                    </li>
+                    <li class="mb-3">
+                        <label class="checkbox">
+                            <input type="checkbox" class="task-checkbox"> Collect final paperwork and documents
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Save Progress Button (only shows if user is logged in) -->
+
+        </div>
+    </section>
+    
+    <!-- JavaScript for Progress Bar Update and Save Button -->
+    <script>
+        const checkboxes = document.querySelectorAll('.task-checkbox');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const saveButton = document.getElementById('save-progress');
+
+        function updateProgress() {
+            const totalTasks = checkboxes.length;
+            const completedTasks = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            const progressPercentage = (completedTasks / totalTasks) * 100;
+            progressBar.value = progressPercentage;
+            progressText.textContent = `${Math.round(progressPercentage)}% completed`;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgress);
+        });
+
+        updateProgress();
+
+        if (saveButton) {
+            saveButton.addEventListener('click', () => {
+                const completedTasks = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+                const totalTasks = checkboxes.length;
+                const progressPercentage = (completedTasks / totalTasks) * 100;
+
+
+            });
+        }
+    </script>
+    {% endblock %}
+</body>
+</html>
